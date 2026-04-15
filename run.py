@@ -23,6 +23,8 @@ def main() -> int:
                         help="process only the first N frames (smoke mode)")
     parser.add_argument("--no-progress", action="store_true",
                         help="hide tqdm progress bar")
+    parser.add_argument("--no-recognise", action="store_true",
+                        help="detection-only mode (skip embedder + recogniser)")
     args = parser.parse_args()
 
     try:
@@ -31,6 +33,7 @@ def main() -> int:
             video_out=args.video_out,
             frame_limit=args.frames,
             show_progress=not args.no_progress,
+            recognise=not args.no_recognise,
         )
     except FileNotFoundError as e:
         print(f"error: {e}", file=sys.stderr)

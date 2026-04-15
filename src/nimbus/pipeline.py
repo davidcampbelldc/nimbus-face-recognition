@@ -1,17 +1,24 @@
-"""Main pipeline: read → detect (+ scene-cut) → render → write."""
+"""Main pipeline: read → detect (+ scene-cut) → embed → recognise → render → write."""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+import time
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 import cv2
 from tqdm import tqdm
 
 from .detector import FaceDetector
+from .embedder import Embedder
+from .recogniser import Recogniser
 from .renderer import VideoWriter, draw_detections
 from .scene_cut import SceneCutDetector
-from .types import FrameResult
+from .types import Detection, FrameResult
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_EMBEDDINGS = REPO_ROOT / "refs" / "embeddings.npz"
+DEFAULT_CALIBRATION = REPO_ROOT / "refs" / "calibration.json"
 
 
 @dataclass
@@ -26,24 +33,55 @@ class PipelineStats:
         return self.frames_processed / self.runtime_seconds if self.runtime_seconds > 0 else 0.0
 
 
+def _recognise_detections(
+    detections: list[Detection],
+    embedder: Embedder,
+    recogniser: Recogniser,
+) -> list[Detection]:
+    """Embed each detection's aligned face and assign a character label."""
+    labelled: list[Detection] = []
+    for det in detections:
+        if det.aligned_face is None:
+            labelled.append(det)
+            continue
+        try:
+            emb = embedder.embed_aligned_face(det.aligned_face)
+            result = recogniser.recognise(emb)
+            labelled.append(replace(
+                det,
+                label=result.label,
+                label_confidence=result.confidence,
+            ))
+        except Exception as e:
+            # Embedding failure on a pathological crop — keep the detection,
+            # mark as Unknown. Pipeline must not die on one bad face.
+            print(f"  warning: recognition skipped for a detection: {e}")
+            labelled.append(replace(det, label="Unknown", label_confidence=0.0))
+    return labelled
+
+
 def run(
     video_in: Path,
     video_out: Path,
     frame_limit: int | None = None,
     show_progress: bool = True,
+    recognise: bool = True,
+    embeddings_path: Path | None = None,
+    calibration_path: Path | None = None,
 ) -> PipelineStats:
-    """Process one video: detect faces per frame, render boxes, write output.
+    """Process one video: detect → (recognise) → render → write.
 
     Args:
         video_in: path to input mp4.
         video_out: path to output mp4 (parent dir auto-created).
         frame_limit: if set, process only the first N frames (smoke mode).
         show_progress: render a tqdm progress bar.
-
-    Returns PipelineStats (frames, detections, cuts, runtime).
+        recognise: when True, embed each detected face and label it with the
+            most likely character (or "Unknown"). Falls back to detection-only
+            output if the refs/calibration artefacts are missing.
+        embeddings_path: override for refs/embeddings.npz.
+        calibration_path: override for refs/calibration.json.
     """
-    import time
-
     if not video_in.exists():
         raise FileNotFoundError(f"input video not found: {video_in}")
 
@@ -60,6 +98,20 @@ def run(
 
     detector = FaceDetector()
     scene_cut = SceneCutDetector()
+
+    embedder: Embedder | None = None
+    recogniser: Recogniser | None = None
+    if recognise:
+        try:
+            embedder = Embedder()
+            recogniser = Recogniser(
+                embeddings_path or DEFAULT_EMBEDDINGS,
+                calibration_path or DEFAULT_CALIBRATION,
+            )
+        except FileNotFoundError as e:
+            print(f"warning: recognition disabled — {e}")
+            embedder = None
+            recogniser = None
 
     total_detections = 0
     scene_cuts = 0
@@ -81,6 +133,9 @@ def run(
 
             detections = detector.detect(frame)
             total_detections += len(detections)
+
+            if embedder is not None and recogniser is not None:
+                detections = _recognise_detections(detections, embedder, recogniser)
 
             _ = FrameResult(frame_idx=frame_idx, detections=detections, scene_cut=cut)
             annotated = draw_detections(frame, detections)
