@@ -18,6 +18,10 @@ dist/
 data/input/
 data/output/
 
+# Eval frame caches (regeneratable via scripts/extract_eval_frames.py)
+eval/frames_raw/
+eval/frames_labelling/
+
 # Generated eval artefacts (committed intentionally — see README)
 # eval/metrics.json        <- COMMITTED
 # refs/*.npz               <- COMMITTED
