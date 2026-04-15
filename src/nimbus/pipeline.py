@@ -14,6 +14,7 @@ from .embedder import Embedder
 from .recogniser import Recogniser
 from .renderer import VideoWriter, draw_detections
 from .scene_cut import SceneCutDetector
+from .tracker import Tracker
 from .types import Detection, FrameResult
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -66,10 +67,11 @@ def run(
     frame_limit: int | None = None,
     show_progress: bool = True,
     recognise: bool = True,
+    track: bool = True,
     embeddings_path: Path | None = None,
     calibration_path: Path | None = None,
 ) -> PipelineStats:
-    """Process one video: detect → (recognise) → render → write.
+    """Process one video: detect → (recognise) → (track) → render → write.
 
     Args:
         video_in: path to input mp4.
@@ -79,6 +81,8 @@ def run(
         recognise: when True, embed each detected face and label it with the
             most likely character (or "Unknown"). Falls back to detection-only
             output if the refs/calibration artefacts are missing.
+        track: when True, smooth labels via the IoU tracker. Scene cuts flush
+            tracks to avoid label bleed across shots.
         embeddings_path: override for refs/embeddings.npz.
         calibration_path: override for refs/calibration.json.
     """
@@ -113,6 +117,8 @@ def run(
             embedder = None
             recogniser = None
 
+    tracker: Tracker | None = Tracker() if track else None
+
     total_detections = 0
     scene_cuts = 0
     t_start = time.monotonic()
@@ -136,6 +142,9 @@ def run(
 
             if embedder is not None and recogniser is not None:
                 detections = _recognise_detections(detections, embedder, recogniser)
+
+            if tracker is not None:
+                detections = tracker.update(detections, scene_cut=cut)
 
             _ = FrameResult(frame_idx=frame_idx, detections=detections, scene_cut=cut)
             annotated = draw_detections(frame, detections)

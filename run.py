@@ -25,6 +25,8 @@ def main() -> int:
                         help="hide tqdm progress bar")
     parser.add_argument("--no-recognise", action="store_true",
                         help="detection-only mode (skip embedder + recogniser)")
+    parser.add_argument("--no-track", action="store_true",
+                        help="disable tracker/label-smoothing (emit raw per-frame labels)")
     args = parser.parse_args()
 
     try:
@@ -34,6 +36,7 @@ def main() -> int:
             frame_limit=args.frames,
             show_progress=not args.no_progress,
             recognise=not args.no_recognise,
+            track=not args.no_track,
         )
     except FileNotFoundError as e:
         print(f"error: {e}", file=sys.stderr)

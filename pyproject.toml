@@ -54,6 +54,9 @@ ignore = [
     "PLC0415",  # lazy imports of heavy deps (DeepFace/TF) are intentional
 ]
 
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["PLR2004"]  # magic numbers in assertions are test literals, not tech debt
+
 [tool.mypy]
 python_version = "3.11"
 strict = false   # DeepFace is untyped; strict on our wrappers produces theatre, not signal
