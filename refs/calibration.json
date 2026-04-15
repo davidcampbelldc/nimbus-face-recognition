@@ -1,0 +1,56 @@
+{
+  "model": "Facenet512",
+  "detector": "retinaface",
+  "k": 3,
+  "global_margin": 0.05,
+  "threshold_buffer": 0.05,
+  "threshold_floor": 0.25,
+  "threshold_ceiling": 0.5,
+  "characters": {
+    "harry": {
+      "n_refs": 4,
+      "threshold": 0.4535978118578593,
+      "margin": 0.05,
+      "intra_mean": 0.1468411087989807,
+      "intra_max": 0.18268251419067383,
+      "loo_max": 0.4035978118578593,
+      "loo_mean": 0.3628265758355459
+    },
+    "hermione": {
+      "n_refs": 4,
+      "threshold": 0.3393303434054057,
+      "margin": 0.05,
+      "intra_mean": 0.10021492838859558,
+      "intra_max": 0.1297895908355713,
+      "loo_max": 0.2893303434054057,
+      "loo_mean": 0.2538491189479828
+    },
+    "mcgonagall": {
+      "n_refs": 5,
+      "threshold": 0.27223361333211266,
+      "margin": 0.05,
+      "intra_mean": 0.08617725372314453,
+      "intra_max": 0.10820186138153076,
+      "loo_max": 0.22223361333211264,
+      "loo_mean": 0.19426521460215254
+    },
+    "ron": {
+      "n_refs": 8,
+      "threshold": 0.4444052259127299,
+      "margin": 0.05,
+      "intra_mean": 0.16919444501399994,
+      "intra_max": 0.2929335832595825,
+      "loo_max": 0.3944052259127299,
+      "loo_mean": 0.2653461520870527
+    },
+    "snape": {
+      "n_refs": 5,
+      "threshold": 0.3668194095293681,
+      "margin": 0.05,
+      "intra_mean": 0.11722972393035888,
+      "intra_max": 0.18495362997055054,
+      "loo_max": 0.3168194095293681,
+      "loo_mean": 0.24422405958175658
+    }
+  }
+}
