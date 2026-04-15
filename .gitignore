@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Project data (input video + generated output stay local — shared via Drive link)
+data/input/
+data/output/
+
+# Generated eval artefacts (committed intentionally — see README)
+# eval/metrics.json        <- COMMITTED
+# refs/*.npz               <- COMMITTED
+# refs/calibration.json    <- COMMITTED
+
+# Weights are Git LFS — tracked, not ignored
+# weights/*.h5             <- tracked via LFS
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp

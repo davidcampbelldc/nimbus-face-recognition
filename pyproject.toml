@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nimbus"
+version = "1.0.0"
+description = "Face detection + character recognition on a Harry Potter clip using DeepFace (RetinaFace + Facenet512)."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "David Campbell", email = "loadmagic@gmail.com" }]
+requires-python = ">=3.11,<3.12"
+
+dependencies = [
+    "deepface==0.0.93",
+    # Platform-conditional TF: arm64 (Apple Silicon) needs tensorflow-macos.
+    "tensorflow-cpu==2.16.1; platform_machine != 'arm64'",
+    "tensorflow-macos==2.16.1; platform_machine == 'arm64'",
+    # Required: DeepFace 0.0.93 imports the legacy Keras API; TF 2.16 shipped
+    # Keras 3, so tf-keras provides the compatibility shim. Without this pin
+    # DeepFace fails to import on TF 2.16 — #1 install failure in 2024-25.
+    "tf-keras==2.16.0",
+    "retina-face==0.0.17",
+    "opencv-python==4.10.0.84",
+    "numpy<2.0",
+    "tqdm",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[project.scripts]
+nimbus-run = "nimbus.pipeline:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RET", "PL"]
+ignore = ["PLR0913"]  # many-arguments: we use dataclasses, but pipeline assemblers are naturally wide
+
+[tool.mypy]
+python_version = "3.11"
+strict = false   # DeepFace is untyped; strict on our wrappers produces theatre, not signal
+warn_unused_ignores = true
+warn_return_any = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["deepface.*", "retinaface.*", "cv2.*"]
+ignore_missing_imports = true
