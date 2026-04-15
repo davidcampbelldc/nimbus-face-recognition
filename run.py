@@ -27,6 +27,9 @@ def main() -> int:
                         help="detection-only mode (skip embedder + recogniser)")
     parser.add_argument("--no-track", action="store_true",
                         help="disable tracker/label-smoothing (emit raw per-frame labels)")
+    parser.add_argument("--downsample", type=int, default=None,
+                        help="resize frame so short side = N px before detection "
+                             "(e.g. 540 → ~4× speedup at small accuracy cost)")
     args = parser.parse_args()
 
     try:
@@ -37,6 +40,7 @@ def main() -> int:
             show_progress=not args.no_progress,
             recognise=not args.no_recognise,
             track=not args.no_track,
+            downsample=args.downsample,
         )
     except FileNotFoundError as e:
         print(f"error: {e}", file=sys.stderr)

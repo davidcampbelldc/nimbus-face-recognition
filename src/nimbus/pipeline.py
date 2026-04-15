@@ -34,6 +34,53 @@ class PipelineStats:
         return self.frames_processed / self.runtime_seconds if self.runtime_seconds > 0 else 0.0
 
 
+def _rescale_bbox(det: Detection, scale: float) -> Detection:
+    """Scale a detection's bbox from a downsampled frame back to original
+    coords. `scale` is the ratio applied to the frame before detection
+    (e.g. 0.5 = half-size); we multiply bboxes by 1/scale."""
+    x, y, w, h = det.bbox
+    inv = 1.0 / scale
+    return replace(
+        det,
+        bbox=(int(round(x * inv)), int(round(y * inv)),
+              int(round(w * inv)), int(round(h * inv))),
+    )
+
+
+def _detect(frame, detector: FaceDetector, scale: float | None) -> list[Detection]:
+    """Run the detector; optionally downsample first and scale bboxes back.
+
+    Output video stays at original resolution regardless of `scale` — the
+    frame passed to the renderer is the untouched original.
+    """
+    if scale is None:
+        return detector.detect(frame)
+    h, w = frame.shape[:2]
+    small = cv2.resize(
+        frame,
+        (int(round(w * scale)), int(round(h * scale))),
+        interpolation=cv2.INTER_AREA,
+    )
+    return [_rescale_bbox(d, scale) for d in detector.detect(small)]
+
+
+def _init_recogniser(
+    recognise: bool,
+    embeddings_path: Path,
+    calibration_path: Path,
+) -> tuple[Embedder | None, Recogniser | None]:
+    """Build the embedder + recogniser, or return (None, None) if disabled
+    or refs are missing. Missing-refs is a soft failure: we log and fall back
+    to detection-only output so smoke runs work on a fresh clone."""
+    if not recognise:
+        return None, None
+    try:
+        return Embedder(), Recogniser(embeddings_path, calibration_path)
+    except FileNotFoundError as e:
+        print(f"warning: recognition disabled — {e}")
+        return None, None
+
+
 def _recognise_detections(
     detections: list[Detection],
     embedder: Embedder,
@@ -68,6 +115,7 @@ def run(
     show_progress: bool = True,
     recognise: bool = True,
     track: bool = True,
+    downsample: int | None = None,
     embeddings_path: Path | None = None,
     calibration_path: Path | None = None,
 ) -> PipelineStats:
@@ -83,6 +131,11 @@ def run(
             output if the refs/calibration artefacts are missing.
         track: when True, smooth labels via the IoU tracker. Scene cuts flush
             tracks to avoid label bleed across shots.
+        downsample: if set, resize the frame to this short-side (in px) before
+            running detection + alignment, then scale bboxes back to the
+            original frame for rendering. Speeds up detection at the cost of
+            small-face recall + a small embedding-quality delta (alignment
+            happens at the lower res). Output video stays at original res.
         embeddings_path: override for refs/embeddings.npz.
         calibration_path: override for refs/calibration.json.
     """
@@ -103,20 +156,11 @@ def run(
     detector = FaceDetector()
     scene_cut = SceneCutDetector()
 
-    embedder: Embedder | None = None
-    recogniser: Recogniser | None = None
-    if recognise:
-        try:
-            embedder = Embedder()
-            recogniser = Recogniser(
-                embeddings_path or DEFAULT_EMBEDDINGS,
-                calibration_path or DEFAULT_CALIBRATION,
-            )
-        except FileNotFoundError as e:
-            print(f"warning: recognition disabled — {e}")
-            embedder = None
-            recogniser = None
-
+    embedder, recogniser = _init_recogniser(
+        recognise,
+        embeddings_path or DEFAULT_EMBEDDINGS,
+        calibration_path or DEFAULT_CALIBRATION,
+    )
     tracker: Tracker | None = Tracker() if track else None
 
     total_detections = 0
@@ -126,6 +170,11 @@ def run(
     iterator = range(total_frames)
     if show_progress:
         iterator = tqdm(iterator, desc="Processing", unit="frame")
+
+    # Resize so short side = `downsample` px (aspect preserved). None = native.
+    scale: float | None = None
+    if downsample is not None and downsample > 0 and downsample < min(width, height):
+        scale = downsample / min(width, height)
 
     with VideoWriter(video_out, fps, width, height) as writer:
         for frame_idx in iterator:
@@ -137,7 +186,7 @@ def run(
             if cut:
                 scene_cuts += 1
 
-            detections = detector.detect(frame)
+            detections = _detect(frame, detector, scale)
             total_detections += len(detections)
 
             if embedder is not None and recogniser is not None:
