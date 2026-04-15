@@ -1,0 +1,986 @@
+{
+  "0": [],
+  "78": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1307,
+        0,
+        318,
+        396
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "low"
+    }
+  ],
+  "156": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        641,
+        652,
+        114,
+        111
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "low"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1384,
+        611,
+        107,
+        155
+      ],
+      "det_conf": 1.0,
+      "label": "Ron",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B2",
+      "bbox": [
+        797,
+        598,
+        51,
+        76
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B3",
+      "bbox": [
+        83,
+        587,
+        72,
+        92
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "low"
+    },
+    {
+      "box_id": "B4",
+      "bbox": [
+        1823,
+        612,
+        47,
+        60
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B5",
+      "bbox": [
+        1277,
+        574,
+        69,
+        105
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B6",
+      "bbox": [
+        1674,
+        603,
+        54,
+        70
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B7",
+      "bbox": [
+        1418,
+        368,
+        61,
+        84
+      ],
+      "det_conf": 1.0,
+      "label": "Snape",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B8",
+      "bbox": [
+        939,
+        579,
+        45,
+        60
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    }
+  ],
+  "234": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        680,
+        653,
+        119,
+        133
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "medium"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1510,
+        632,
+        100,
+        159
+      ],
+      "det_conf": 1.0,
+      "label": "Ron",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B2",
+      "bbox": [
+        378,
+        639,
+        98,
+        147
+      ],
+      "det_conf": 0.99,
+      "label": "Hermione",
+      "labeller_conf": "medium"
+    },
+    {
+      "box_id": "B3",
+      "bbox": [
+        927,
+        266,
+        87,
+        127
+      ],
+      "det_conf": 0.99,
+      "label": "Snape",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B4",
+      "bbox": [
+        135,
+        637,
+        71,
+        89
+      ],
+      "det_conf": 0.98,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B5",
+      "bbox": [
+        1382,
+        651,
+        70,
+        96
+      ],
+      "det_conf": 0.97,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    }
+  ],
+  "312": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1120,
+        333,
+        295,
+        340
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        281,
+        378,
+        225,
+        326
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    }
+  ],
+  "390": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        974,
+        244,
+        290,
+        445
+      ],
+      "det_conf": 1.0,
+      "label": "Snape",
+      "labeller_conf": "high"
+    }
+  ],
+  "468": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        984,
+        253,
+        291,
+        429
+      ],
+      "det_conf": 1.0,
+      "label": "Snape",
+      "labeller_conf": "high"
+    }
+  ],
+  "546": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1146,
+        279,
+        290,
+        362
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        361,
+        328,
+        250,
+        320
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    }
+  ],
+  "624": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1083,
+        229,
+        267,
+        394
+      ],
+      "det_conf": 1.0,
+      "label": "Snape",
+      "labeller_conf": "high"
+    }
+  ],
+  "702": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1036,
+        218,
+        269,
+        393
+      ],
+      "det_conf": 1.0,
+      "label": "Snape",
+      "labeller_conf": "high"
+    }
+  ],
+  "780": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        302,
+        210,
+        275,
+        371
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1168,
+        407,
+        258,
+        321
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "858": [],
+  "936": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        941,
+        365,
+        321,
+        387
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        524,
+        342,
+        317,
+        432
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    }
+  ],
+  "1014": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1112,
+        390,
+        323,
+        396
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "1092": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1089,
+        428,
+        341,
+        403
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "1170": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        480,
+        220,
+        423,
+        557
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1287,
+        443,
+        252,
+        434
+      ],
+      "det_conf": 0.96,
+      "label": "Harry",
+      "labeller_conf": "low"
+    }
+  ],
+  "1248": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1105,
+        341,
+        368,
+        476
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "1326": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        350,
+        290,
+        394,
+        558
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1070,
+        284,
+        357,
+        580
+      ],
+      "det_conf": 0.97,
+      "label": "Harry",
+      "labeller_conf": "low"
+    }
+  ],
+  "1404": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1067,
+        259,
+        469,
+        576
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "1482": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1140,
+        314,
+        464,
+        563
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "1561": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        748,
+        273,
+        431,
+        530
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "1639": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1205,
+        361,
+        482,
+        524
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        401,
+        331,
+        401,
+        609
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    }
+  ],
+  "1717": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1150,
+        254,
+        465,
+        565
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "1795": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1071,
+        214,
+        442,
+        554
+      ],
+      "det_conf": 1.0,
+      "label": "Ron",
+      "labeller_conf": "high"
+    }
+  ],
+  "1873": [],
+  "1951": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        968,
+        666,
+        29,
+        42
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1016,
+        788,
+        32,
+        46
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B2",
+      "bbox": [
+        747,
+        643,
+        26,
+        34
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B3",
+      "bbox": [
+        1056,
+        865,
+        45,
+        59
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B4",
+      "bbox": [
+        1457,
+        880,
+        48,
+        61
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B5",
+      "bbox": [
+        1622,
+        800,
+        39,
+        45
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B6",
+      "bbox": [
+        107,
+        641,
+        34,
+        39
+      ],
+      "det_conf": 0.98,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B7",
+      "bbox": [
+        952,
+        601,
+        29,
+        37
+      ],
+      "det_conf": 0.98,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B8",
+      "bbox": [
+        1458,
+        620,
+        31,
+        38
+      ],
+      "det_conf": 0.97,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B9",
+      "bbox": [
+        780,
+        605,
+        29,
+        36
+      ],
+      "det_conf": 0.97,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B10",
+      "bbox": [
+        275,
+        543,
+        26,
+        32
+      ],
+      "det_conf": 0.97,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B11",
+      "bbox": [
+        1321,
+        689,
+        36,
+        42
+      ],
+      "det_conf": 0.96,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B12",
+      "bbox": [
+        1396,
+        768,
+        47,
+        53
+      ],
+      "det_conf": 0.96,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B13",
+      "bbox": [
+        978,
+        633,
+        29,
+        37
+      ],
+      "det_conf": 0.96,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B14",
+      "bbox": [
+        755,
+        709,
+        33,
+        42
+      ],
+      "det_conf": 0.92,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    }
+  ],
+  "2029": [],
+  "2107": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        674,
+        316,
+        342,
+        371
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "2185": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        821,
+        496,
+        111,
+        115
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1289,
+        512,
+        124,
+        170
+      ],
+      "det_conf": 1.0,
+      "label": "Ron",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B2",
+      "bbox": [
+        1836,
+        515,
+        78,
+        96
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B3",
+      "bbox": [
+        280,
+        485,
+        122,
+        157
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B4",
+      "bbox": [
+        1194,
+        593,
+        46,
+        58
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B5",
+      "bbox": [
+        1552,
+        490,
+        77,
+        90
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    }
+  ],
+  "2263": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        561,
+        338,
+        321,
+        384
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "2341": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        953,
+        357,
+        333,
+        406
+      ],
+      "det_conf": 1.0,
+      "label": "Ron",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1506,
+        209,
+        199,
+        282
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    }
+  ],
+  "2419": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        925,
+        345,
+        118,
+        120
+      ],
+      "det_conf": 0.99,
+      "label": "Unknown",
+      "labeller_conf": "medium"
+    }
+  ],
+  "2497": [],
+  "2575": [],
+  "2653": [],
+  "2731": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        1030,
+        331,
+        318,
+        396
+      ],
+      "det_conf": 1.0,
+      "label": "Ron",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1395,
+        233,
+        173,
+        256
+      ],
+      "det_conf": 0.95,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    }
+  ],
+  "2809": [],
+  "2887": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        478,
+        416,
+        314,
+        370
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ],
+  "2965": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        783,
+        268,
+        218,
+        277
+      ],
+      "det_conf": 1.0,
+      "label": "McGonagall",
+      "labeller_conf": "high"
+    }
+  ],
+  "3043": [
+    {
+      "box_id": "B0",
+      "bbox": [
+        116,
+        286,
+        362,
+        483
+      ],
+      "det_conf": 1.0,
+      "label": "Hermione",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B1",
+      "bbox": [
+        1611,
+        111,
+        302,
+        390
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B2",
+      "bbox": [
+        1198,
+        274,
+        332,
+        410
+      ],
+      "det_conf": 1.0,
+      "label": "Unknown",
+      "labeller_conf": "high"
+    },
+    {
+      "box_id": "B3",
+      "bbox": [
+        711,
+        291,
+        361,
+        441
+      ],
+      "det_conf": 1.0,
+      "label": "Harry",
+      "labeller_conf": "high"
+    }
+  ]
+}
