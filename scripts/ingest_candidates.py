@@ -32,7 +32,8 @@ REFERENCES_DIR = REPO_ROOT / "references"
 CANDIDATES: dict[str, list[str]] = {
     "harry":      ["harry.webp", "harry2.jpeg", "harry4.webp", "harry5.avif"],
     "hermione":   ["hermione.jpg", "her2.jpeg", "her3.jpg", "her4.avif", "her5.jpg"],
-    "ron":        ["ron2.jpg", "ron3.jpg", "ron3.webp"],
+    "ron":        ["ron2.jpg", "ron3.jpg", "ron3.webp",
+                   "ron4.jpg", "ron5.webp", "ron6.png", "ron7.jpg", "ron8.jpg"],
     "mcgonagall": ["mc1.avif", "mc2.webp", "mc3.avif", "mc4.jpeg", "mc5.webp"],
     "snape":      ["snape.avif", "snape2.jpg", "snape3.jpg", "snape4.jpeg", "snape5.webp"],
 }
