@@ -1,0 +1,78 @@
+{
+  "model": "Facenet512",
+  "detector": "retinaface",
+  "characters": [
+    {
+      "name": "harry",
+      "n_refs": 4,
+      "intra_mean": 0.1468411087989807,
+      "intra_max": 0.18268251419067383
+    },
+    {
+      "name": "ron",
+      "n_refs": 3,
+      "intra_mean": 0.14211140076319376,
+      "intra_max": 0.20972073078155518
+    },
+    {
+      "name": "hermione",
+      "n_refs": 4,
+      "intra_mean": 0.10021492838859558,
+      "intra_max": 0.1297895908355713
+    },
+    {
+      "name": "mcgonagall",
+      "n_refs": 5,
+      "intra_mean": 0.08617725372314453,
+      "intra_max": 0.10820186138153076
+    },
+    {
+      "name": "snape",
+      "n_refs": 5,
+      "intra_mean": 0.11722972393035888,
+      "intra_max": 0.18495362997055054
+    }
+  ],
+  "pairwise_centroid_distance": {
+    "harry": {
+      "harry": 1.1920928955078125e-07,
+      "ron": 0.5520620346069336,
+      "hermione": 0.5727892518043518,
+      "mcgonagall": 0.7554671615362167,
+      "snape": 0.8607638031244278
+    },
+    "ron": {
+      "harry": 0.5520620346069336,
+      "ron": 5.960464477539063e-08,
+      "hermione": 0.4373229146003723,
+      "mcgonagall": 0.9356133490800858,
+      "snape": 0.9776202775537968
+    },
+    "hermione": {
+      "harry": 0.5727892518043518,
+      "ron": 0.4373229146003723,
+      "hermione": 0.0,
+      "mcgonagall": 0.9258415922522545,
+      "snape": 0.9172671809792519
+    },
+    "mcgonagall": {
+      "harry": 0.7554671615362167,
+      "ron": 0.9356133490800858,
+      "hermione": 0.9258415922522545,
+      "mcgonagall": 0.0,
+      "snape": 0.8576437532901764
+    },
+    "snape": {
+      "harry": 0.8607638031244278,
+      "ron": 0.9776202775537968,
+      "hermione": 0.9172671809792519,
+      "mcgonagall": 0.8576437532901764,
+      "snape": 0.0
+    }
+  },
+  "hardest_pair": {
+    "a": "ron",
+    "b": "hermione",
+    "distance": 0.4373229146003723
+  }
+}
