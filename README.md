@@ -103,6 +103,12 @@ Raw numbers: [`eval/metrics.json`](eval/metrics.json). Methodology:
 git clone <repo-url>
 cd whiteswan-deepface
 pip install -e .
+
+# Download the input clip (provided in the assessment brief) into data/input/
+mkdir -p data/input
+# Google Drive source:
+#   https://drive.google.com/file/d/1CM1IWUN59ZWml9MwgrvSHXz_9AirIiuU/view
+# Save the file as data/input/nimbus.mp4, then run:
 python run.py data/input/nimbus.mp4 data/output/nimbus_annotated.mp4
 ```
 
