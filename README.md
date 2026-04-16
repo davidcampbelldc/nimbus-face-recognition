@@ -130,8 +130,8 @@ Quick ~1-minute sanity check before a full render:
 python run.py --frames 60 data/input/nimbus.mp4 data/output/nimbus_smoke.mp4
 ```
 
-Full render takes ~45 min to 2 hrs on CPU, depending on hardware and
-face density.
+Full render takes ~1 to 3 hrs on CPU, depending on hardware and face
+density.
 
 ---
 

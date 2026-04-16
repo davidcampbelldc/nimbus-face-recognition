@@ -538,9 +538,11 @@ Full 3044-frame render on a modern CPU:
 - Recognition (k-NN plus margin): <1ms/frame (vectorised matmul, see §10)
 - Scene-cut plus tracker plus render: ~5ms/frame combined
 
-Expected wall time end-to-end: ~45 min to 2 hrs depending on CPU and
-face density in the frame. First run additionally downloads ~250MB of
-model weights from DeepFace's hosted repo. Happens once, then cached.
+Expected wall time end-to-end: ~1 to 3 hrs depending on CPU and face
+density in the frame. On our development machine (Linux x86_64,
+multi-core), the full 3044-frame render took 2h 43m. First run
+additionally downloads ~250MB of model weights from DeepFace's hosted
+repo. Happens once, then cached.
 
 ---
 
