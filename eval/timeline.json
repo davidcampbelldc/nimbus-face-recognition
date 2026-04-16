@@ -1,0 +1,1378 @@
+[
+  {
+    "frame": 0,
+    "timestamp_sec": 0.0,
+    "timecode": "00:00.000",
+    "n_detections": 0,
+    "boxes": []
+  },
+  {
+    "frame": 78,
+    "timestamp_sec": 2.603,
+    "timecode": "00:02.603",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1307,
+          0,
+          318,
+          396
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "low",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.337,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 156,
+    "timestamp_sec": 5.205,
+    "timecode": "00:05.205",
+    "n_detections": 9,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          641,
+          652,
+          114,
+          111
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "low",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.45,
+        "match": false
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1384,
+          611,
+          107,
+          155
+        ],
+        "gt_label": "Ron",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.157,
+        "match": false
+      },
+      {
+        "box_id": "B2",
+        "bbox": [
+          797,
+          598,
+          51,
+          76
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.146,
+        "match": true
+      },
+      {
+        "box_id": "B3",
+        "bbox": [
+          83,
+          587,
+          72,
+          92
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "low",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.294,
+        "match": false
+      },
+      {
+        "box_id": "B4",
+        "bbox": [
+          1823,
+          612,
+          47,
+          60
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.167,
+        "match": true
+      },
+      {
+        "box_id": "B5",
+        "bbox": [
+          1277,
+          574,
+          69,
+          105
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.192,
+        "match": true
+      },
+      {
+        "box_id": "B6",
+        "bbox": [
+          1674,
+          603,
+          54,
+          70
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.345,
+        "match": true
+      },
+      {
+        "box_id": "B7",
+        "bbox": [
+          1418,
+          368,
+          61,
+          84
+        ],
+        "gt_label": "Snape",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.296,
+        "match": false
+      },
+      {
+        "box_id": "B8",
+        "bbox": [
+          939,
+          579,
+          45,
+          60
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.325,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 234,
+    "timestamp_sec": 7.808,
+    "timecode": "00:07.808",
+    "n_detections": 6,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          680,
+          653,
+          119,
+          133
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "medium",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.556,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1510,
+          632,
+          100,
+          159
+        ],
+        "gt_label": "Ron",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.384,
+        "match": false
+      },
+      {
+        "box_id": "B2",
+        "bbox": [
+          378,
+          639,
+          98,
+          147
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "medium",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.42,
+        "match": false
+      },
+      {
+        "box_id": "B3",
+        "bbox": [
+          927,
+          266,
+          87,
+          127
+        ],
+        "gt_label": "Snape",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.591,
+        "match": false
+      },
+      {
+        "box_id": "B4",
+        "bbox": [
+          135,
+          637,
+          71,
+          89
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.317,
+        "match": true
+      },
+      {
+        "box_id": "B5",
+        "bbox": [
+          1382,
+          651,
+          70,
+          96
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.444,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 312,
+    "timestamp_sec": 10.41,
+    "timecode": "00:10.410",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1120,
+          333,
+          295,
+          340
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.628,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          281,
+          378,
+          225,
+          326
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.521,
+        "match": false
+      }
+    ]
+  },
+  {
+    "frame": 390,
+    "timestamp_sec": 13.013,
+    "timecode": "00:13.013",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          974,
+          244,
+          290,
+          445
+        ],
+        "gt_label": "Snape",
+        "labeller_conf": "high",
+        "pred_label": "Snape",
+        "pred_rec_conf": 0.784,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 468,
+    "timestamp_sec": 15.616,
+    "timecode": "00:15.616",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          984,
+          253,
+          291,
+          429
+        ],
+        "gt_label": "Snape",
+        "labeller_conf": "high",
+        "pred_label": "Snape",
+        "pred_rec_conf": 0.772,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 546,
+    "timestamp_sec": 18.218,
+    "timecode": "00:18.218",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1146,
+          279,
+          290,
+          362
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.681,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          361,
+          328,
+          250,
+          320
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Hermione",
+        "pred_rec_conf": 0.72,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 624,
+    "timestamp_sec": 20.821,
+    "timecode": "00:20.821",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1083,
+          229,
+          267,
+          394
+        ],
+        "gt_label": "Snape",
+        "labeller_conf": "high",
+        "pred_label": "Snape",
+        "pred_rec_conf": 0.748,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 702,
+    "timestamp_sec": 23.423,
+    "timecode": "00:23.423",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1036,
+          218,
+          269,
+          393
+        ],
+        "gt_label": "Snape",
+        "labeller_conf": "high",
+        "pred_label": "Snape",
+        "pred_rec_conf": 0.804,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 780,
+    "timestamp_sec": 26.026,
+    "timecode": "00:26.026",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          302,
+          210,
+          275,
+          371
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Hermione",
+        "pred_rec_conf": 0.713,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1168,
+          407,
+          258,
+          321
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.644,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 858,
+    "timestamp_sec": 28.629,
+    "timecode": "00:28.629",
+    "n_detections": 0,
+    "boxes": []
+  },
+  {
+    "frame": 936,
+    "timestamp_sec": 31.231,
+    "timecode": "00:31.231",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          941,
+          365,
+          321,
+          387
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.68,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          524,
+          342,
+          317,
+          432
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.572,
+        "match": false
+      }
+    ]
+  },
+  {
+    "frame": 1014,
+    "timestamp_sec": 33.834,
+    "timecode": "00:33.834",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1112,
+          390,
+          323,
+          396
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.706,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 1092,
+    "timestamp_sec": 36.436,
+    "timecode": "00:36.436",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1089,
+          428,
+          341,
+          403
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.725,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 1170,
+    "timestamp_sec": 39.039,
+    "timecode": "00:39.039",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          480,
+          220,
+          423,
+          557
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Hermione",
+        "pred_rec_conf": 0.668,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1287,
+          443,
+          252,
+          434
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "low",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.296,
+        "match": false
+      }
+    ]
+  },
+  {
+    "frame": 1248,
+    "timestamp_sec": 41.642,
+    "timecode": "00:41.642",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1105,
+          341,
+          368,
+          476
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.682,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 1326,
+    "timestamp_sec": 44.244,
+    "timecode": "00:44.244",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          350,
+          290,
+          394,
+          558
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.629,
+        "match": false
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1070,
+          284,
+          357,
+          580
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "low",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.409,
+        "match": false
+      }
+    ]
+  },
+  {
+    "frame": 1404,
+    "timestamp_sec": 46.847,
+    "timecode": "00:46.847",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1067,
+          259,
+          469,
+          576
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.771,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 1482,
+    "timestamp_sec": 49.449,
+    "timecode": "00:49.449",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1140,
+          314,
+          464,
+          563
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.687,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 1561,
+    "timestamp_sec": 52.085,
+    "timecode": "00:52.085",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          748,
+          273,
+          431,
+          530
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.632,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 1639,
+    "timestamp_sec": 54.688,
+    "timecode": "00:54.688",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1205,
+          361,
+          482,
+          524
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.674,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          401,
+          331,
+          401,
+          609
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.208,
+        "match": false
+      }
+    ]
+  },
+  {
+    "frame": 1717,
+    "timestamp_sec": 57.291,
+    "timecode": "00:57.291",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1150,
+          254,
+          465,
+          565
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.698,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 1795,
+    "timestamp_sec": 59.893,
+    "timecode": "00:59.893",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1071,
+          214,
+          442,
+          554
+        ],
+        "gt_label": "Ron",
+        "labeller_conf": "high",
+        "pred_label": "Ron",
+        "pred_rec_conf": 0.721,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 1873,
+    "timestamp_sec": 62.496,
+    "timecode": "01:02.496",
+    "n_detections": 0,
+    "boxes": []
+  },
+  {
+    "frame": 1951,
+    "timestamp_sec": 65.098,
+    "timecode": "01:05.098",
+    "n_detections": 15,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          968,
+          666,
+          29,
+          42
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.369,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1016,
+          788,
+          32,
+          46
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.424,
+        "match": true
+      },
+      {
+        "box_id": "B2",
+        "bbox": [
+          747,
+          643,
+          26,
+          34
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.425,
+        "match": true
+      },
+      {
+        "box_id": "B3",
+        "bbox": [
+          1056,
+          865,
+          45,
+          59
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.051,
+        "match": true
+      },
+      {
+        "box_id": "B4",
+        "bbox": [
+          1457,
+          880,
+          48,
+          61
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.232,
+        "match": true
+      },
+      {
+        "box_id": "B5",
+        "bbox": [
+          1622,
+          800,
+          39,
+          45
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.185,
+        "match": true
+      },
+      {
+        "box_id": "B6",
+        "bbox": [
+          107,
+          641,
+          34,
+          39
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.313,
+        "match": true
+      },
+      {
+        "box_id": "B7",
+        "bbox": [
+          952,
+          601,
+          29,
+          37
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.314,
+        "match": true
+      },
+      {
+        "box_id": "B8",
+        "bbox": [
+          1458,
+          620,
+          31,
+          38
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.314,
+        "match": true
+      },
+      {
+        "box_id": "B9",
+        "bbox": [
+          780,
+          605,
+          29,
+          36
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.503,
+        "match": true
+      },
+      {
+        "box_id": "B10",
+        "bbox": [
+          275,
+          543,
+          26,
+          32
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.28,
+        "match": true
+      },
+      {
+        "box_id": "B11",
+        "bbox": [
+          1321,
+          689,
+          36,
+          42
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.191,
+        "match": true
+      },
+      {
+        "box_id": "B12",
+        "bbox": [
+          1396,
+          768,
+          47,
+          53
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.308,
+        "match": true
+      },
+      {
+        "box_id": "B13",
+        "bbox": [
+          978,
+          633,
+          29,
+          37
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.265,
+        "match": true
+      },
+      {
+        "box_id": "B14",
+        "bbox": [
+          755,
+          709,
+          33,
+          42
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.223,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 2029,
+    "timestamp_sec": 67.701,
+    "timecode": "01:07.701",
+    "n_detections": 0,
+    "boxes": []
+  },
+  {
+    "frame": 2107,
+    "timestamp_sec": 70.304,
+    "timecode": "01:10.304",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          674,
+          316,
+          342,
+          371
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.679,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 2185,
+    "timestamp_sec": 72.906,
+    "timecode": "01:12.906",
+    "n_detections": 6,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          821,
+          496,
+          111,
+          115
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.623,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1289,
+          512,
+          124,
+          170
+        ],
+        "gt_label": "Ron",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.342,
+        "match": false
+      },
+      {
+        "box_id": "B2",
+        "bbox": [
+          1836,
+          515,
+          78,
+          96
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.177,
+        "match": true
+      },
+      {
+        "box_id": "B3",
+        "bbox": [
+          280,
+          485,
+          122,
+          157
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.536,
+        "match": false
+      },
+      {
+        "box_id": "B4",
+        "bbox": [
+          1194,
+          593,
+          46,
+          58
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.206,
+        "match": true
+      },
+      {
+        "box_id": "B5",
+        "bbox": [
+          1552,
+          490,
+          77,
+          90
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.233,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 2263,
+    "timestamp_sec": 75.509,
+    "timecode": "01:15.509",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          561,
+          338,
+          321,
+          384
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.679,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 2341,
+    "timestamp_sec": 78.111,
+    "timecode": "01:18.111",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          953,
+          357,
+          333,
+          406
+        ],
+        "gt_label": "Ron",
+        "labeller_conf": "high",
+        "pred_label": "Ron",
+        "pred_rec_conf": 0.704,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1506,
+          209,
+          199,
+          282
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.362,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 2419,
+    "timestamp_sec": 80.714,
+    "timecode": "01:20.714",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          925,
+          345,
+          118,
+          120
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "medium",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.164,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 2497,
+    "timestamp_sec": 83.317,
+    "timecode": "01:23.317",
+    "n_detections": 0,
+    "boxes": []
+  },
+  {
+    "frame": 2575,
+    "timestamp_sec": 85.919,
+    "timecode": "01:25.919",
+    "n_detections": 0,
+    "boxes": []
+  },
+  {
+    "frame": 2653,
+    "timestamp_sec": 88.522,
+    "timecode": "01:28.522",
+    "n_detections": 0,
+    "boxes": []
+  },
+  {
+    "frame": 2731,
+    "timestamp_sec": 91.124,
+    "timecode": "01:31.124",
+    "n_detections": 2,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          1030,
+          331,
+          318,
+          396
+        ],
+        "gt_label": "Ron",
+        "labeller_conf": "high",
+        "pred_label": "Ron",
+        "pred_rec_conf": 0.616,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1395,
+          233,
+          173,
+          256
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.247,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 2809,
+    "timestamp_sec": 93.727,
+    "timecode": "01:33.727",
+    "n_detections": 0,
+    "boxes": []
+  },
+  {
+    "frame": 2887,
+    "timestamp_sec": 96.33,
+    "timecode": "01:36.330",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          478,
+          416,
+          314,
+          370
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.673,
+        "match": true
+      }
+    ]
+  },
+  {
+    "frame": 2965,
+    "timestamp_sec": 98.932,
+    "timecode": "01:38.932",
+    "n_detections": 1,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          783,
+          268,
+          218,
+          277
+        ],
+        "gt_label": "McGonagall",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.722,
+        "match": false
+      }
+    ]
+  },
+  {
+    "frame": 3043,
+    "timestamp_sec": 101.535,
+    "timecode": "01:41.535",
+    "n_detections": 4,
+    "boxes": [
+      {
+        "box_id": "B0",
+        "bbox": [
+          116,
+          286,
+          362,
+          483
+        ],
+        "gt_label": "Hermione",
+        "labeller_conf": "high",
+        "pred_label": "Hermione",
+        "pred_rec_conf": 0.703,
+        "match": true
+      },
+      {
+        "box_id": "B1",
+        "bbox": [
+          1611,
+          111,
+          302,
+          390
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.237,
+        "match": true
+      },
+      {
+        "box_id": "B2",
+        "bbox": [
+          1198,
+          274,
+          332,
+          410
+        ],
+        "gt_label": "Unknown",
+        "labeller_conf": "high",
+        "pred_label": "Unknown",
+        "pred_rec_conf": 0.262,
+        "match": true
+      },
+      {
+        "box_id": "B3",
+        "bbox": [
+          711,
+          291,
+          361,
+          441
+        ],
+        "gt_label": "Harry",
+        "labeller_conf": "high",
+        "pred_label": "Harry",
+        "pred_rec_conf": 0.731,
+        "match": true
+      }
+    ]
+  }
+]
