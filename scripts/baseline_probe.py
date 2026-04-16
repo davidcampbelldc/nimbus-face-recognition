@@ -25,20 +25,14 @@ import cv2
 import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT / "src"))
+
+from nimbus.embedder import cosine_distance, l2_normalise  # noqa: E402
+
 REFERENCES_DIR = REPO_ROOT / "references"
 OUT_PATH = REPO_ROOT / "refs" / "baseline_probe.json"
 
 CHARACTERS = ["harry", "ron", "hermione", "mcgonagall", "snape"]
-
-
-def l2_normalise(v: np.ndarray) -> np.ndarray:
-    n = np.linalg.norm(v)
-    return v / n if n > 0 else v
-
-
-def cosine_distance(a: np.ndarray, b: np.ndarray) -> float:
-    # Inputs are L2-normalised → 1 - dot == cosine distance in [0, 2].
-    return float(1.0 - np.dot(a, b))
 
 
 @dataclass

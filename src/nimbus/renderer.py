@@ -15,19 +15,19 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from .types import Detection
+from .types import LABEL_FACE, LABEL_UNKNOWN, Detection
 
 # Distinct, reasonably colourblind-friendly BGR palette. Covers our 5 named
-# characters + "Face"/Unknown fallback. Ordering chosen so adjacent
-# characters (Harry-Ron) aren't visually confusable.
+# characters + Face/Unknown fallback. Ordering chosen so adjacent characters
+# (Harry-Ron) aren't visually confusable.
 COLOUR_MAP: dict[str, tuple[int, int, int]] = {
     "Harry":       (60, 76, 231),      # red
     "Ron":         (0, 140, 255),      # orange
     "Hermione":    (180, 119, 200),    # mauve
     "McGonagall":  (113, 204, 46),     # green
     "Snape":       (80, 40, 40),       # dark grey-blue
-    "Unknown":     (128, 128, 128),    # grey
-    "Face":        (220, 220, 220),    # off-white (detection-only mode)
+    LABEL_UNKNOWN: (128, 128, 128),    # grey
+    LABEL_FACE:    (220, 220, 220),    # off-white (detection-only mode)
 }
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 FONT_SCALE = 0.6
@@ -39,7 +39,7 @@ def draw_detections(frame: np.ndarray, detections: list[Detection]) -> np.ndarra
     """Draw labelled boxes. Modifies `frame` in-place AND returns it."""
     for det in detections:
         x, y, w, h = det.bbox
-        colour = COLOUR_MAP.get(det.label, COLOUR_MAP["Face"])
+        colour = COLOUR_MAP.get(det.label, COLOUR_MAP[LABEL_FACE])
         cv2.rectangle(frame, (x, y), (x + w, y + h), colour, BOX_THICKNESS)
 
         # Label string

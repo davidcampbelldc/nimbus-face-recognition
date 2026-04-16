@@ -10,6 +10,10 @@ import numpy as np
 # (x, y, w, h) in pixels, top-left origin.
 Bbox: TypeAlias = tuple[int, int, int, int]
 
+# Label fallbacks. Keep as constants so recogniser/renderer/pipeline agree.
+LABEL_UNKNOWN = "Unknown"   # recogniser can't confidently name this face
+LABEL_FACE = "Face"         # detection-only mode, no recogniser in the pipeline
+
 
 @dataclass(frozen=True)
 class Detection:

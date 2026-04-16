@@ -25,12 +25,12 @@ from pathlib import Path
 
 import numpy as np
 
-from .embedder import cosine_distance
+from .types import LABEL_UNKNOWN
 
 
 @dataclass(frozen=True)
 class RecognitionResult:
-    label: str           # character name or "Unknown"
+    label: str           # character name or LABEL_UNKNOWN
     confidence: float    # in [0, 1]; 1 - top1_mean_distance (how close we got)
     top1_name: str       # the closest named character (even if label is Unknown)
     top1_distance: float
@@ -52,7 +52,10 @@ class Recogniser:
             raise FileNotFoundError(f"{calibration_path} missing — run validate_references.py")
 
         data = np.load(embeddings_path)
-        self.refs: dict[str, np.ndarray] = {n: data[n] for n in data.files}
+        # Cast to float32 upfront so the per-frame matmul stays in fast float32.
+        self.refs: dict[str, np.ndarray] = {
+            n: np.ascontiguousarray(data[n], dtype=np.float32) for n in data.files
+        }
 
         calib = json.loads(calibration_path.read_text())
         self.k = int(calib["k"])
@@ -67,17 +70,22 @@ class Recogniser:
         }
 
     def _knn_mean(self, query: np.ndarray, refs: np.ndarray) -> float:
+        # query and refs are L2-normalised, so cosine distance = 1 - dot.
+        # One matrix-vector multiply replaces a Python loop over refs.
         n = refs.shape[0]
         if n == 0:
             return float("inf")
+        dists = 1.0 - refs @ query
         effective_k = min(self.k, n)
-        dists = np.array([cosine_distance(query, r) for r in refs])
-        dists.sort()
-        return float(dists[:effective_k].mean())
+        if effective_k < n:
+            # np.partition places the k-th element in position k with all
+            # smaller values to its left (unordered) — O(n) vs O(n log n).
+            return float(np.partition(dists, effective_k - 1)[:effective_k].mean())
+        return float(dists.mean())
 
     def recognise(self, query: np.ndarray) -> RecognitionResult:
         """Classify a query embedding. Query must be L2-normalised."""
-        # Per-character k-NN mean distance.
+        query = np.ascontiguousarray(query, dtype=np.float32)
         scored = [
             (name, self._knn_mean(query, self.refs[name]))
             for name in self.refs
@@ -92,7 +100,7 @@ class Recogniser:
         passes_threshold = top1_dist < threshold
         passes_margin = (top2_dist - top1_dist) > margin
 
-        label = top1_name.capitalize() if (passes_threshold and passes_margin) else "Unknown"
+        label = top1_name.capitalize() if (passes_threshold and passes_margin) else LABEL_UNKNOWN
 
         confidence = max(0.0, min(1.0, 1.0 - top1_dist))
 

@@ -22,6 +22,10 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT / "src"))
+
+from nimbus.tracker import iou  # noqa: E402
+
 EVAL = REPO_ROOT / "eval"
 GT_PATH = EVAL / "ground_truth.json"
 PRED_PATH = EVAL / "predictions.json"
@@ -45,21 +49,6 @@ def _match_by_bbox(
     iou_threshold: float = 0.5,
 ) -> list[dict | None]:
     """For each GT box, return the best-matching prediction (or None)."""
-    def iou(a: list[int], b: list[int]) -> float:
-        ax, ay, aw, ah = a
-        bx, by, bw, bh = b
-        ix1 = max(ax, bx)
-        iy1 = max(ay, by)
-        ix2 = min(ax + aw, bx + bw)
-        iy2 = min(ay + ah, by + bh)
-        iw = max(0, ix2 - ix1)
-        ih = max(0, iy2 - iy1)
-        inter = iw * ih
-        if inter == 0:
-            return 0.0
-        union = aw * ah + bw * bh - inter
-        return inter / union if union > 0 else 0.0
-
     # Greedy: for each GT in order, find best unclaimed pred over threshold.
     claimed: set[int] = set()
     out: list[dict | None] = []

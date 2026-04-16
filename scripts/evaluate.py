@@ -55,6 +55,7 @@ from nimbus.detector import FaceDetector  # noqa: E402
 from nimbus.embedder import Embedder  # noqa: E402
 from nimbus.pipeline import _recognise_detections  # noqa: E402
 from nimbus.recogniser import Recogniser  # noqa: E402
+from nimbus.tracker import iou  # noqa: E402
 
 EVAL = REPO_ROOT / "eval"
 GT_PATH = EVAL / "ground_truth.json"
@@ -66,22 +67,6 @@ CALIBRATION = REPO_ROOT / "refs" / "calibration.json"
 
 CLASSES = ["Harry", "Ron", "Hermione", "McGonagall", "Snape", "Unknown"]
 IOU_MATCH = 0.5
-
-
-def iou(a: list[int], b: list[int]) -> float:
-    ax, ay, aw, ah = a
-    bx, by, bw, bh = b
-    ix1 = max(ax, bx)
-    iy1 = max(ay, by)
-    ix2 = min(ax + aw, bx + bw)
-    iy2 = min(ay + ah, by + bh)
-    iw = max(0, ix2 - ix1)
-    ih = max(0, iy2 - iy1)
-    inter = iw * ih
-    if inter == 0:
-        return 0.0
-    union = aw * ah + bw * bh - inter
-    return inter / union if union > 0 else 0.0
 
 
 def _match_predictions(

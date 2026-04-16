@@ -15,7 +15,7 @@ from .recogniser import Recogniser
 from .renderer import VideoWriter, draw_detections
 from .scene_cut import SceneCutDetector
 from .tracker import Tracker
-from .types import Detection, FrameResult
+from .types import LABEL_UNKNOWN, Detection
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_EMBEDDINGS = REPO_ROOT / "refs" / "embeddings.npz"
@@ -101,10 +101,11 @@ def _recognise_detections(
                 label_confidence=result.confidence,
             ))
         except Exception as e:
-            # Embedding failure on a pathological crop — keep the detection,
-            # mark as Unknown. Pipeline must not die on one bad face.
+            # DeepFace raises a heterogeneous set (ValueError, RuntimeError,
+            # cv2.error, model-specific asserts) on pathological crops. A 3044-
+            # frame render must not die on one bad face — log and continue.
             print(f"  warning: recognition skipped for a detection: {e}")
-            labelled.append(replace(det, label="Unknown", label_confidence=0.0))
+            labelled.append(replace(det, label=LABEL_UNKNOWN, label_confidence=0.0))
     return labelled
 
 
@@ -195,7 +196,6 @@ def run(
             if tracker is not None:
                 detections = tracker.update(detections, scene_cut=cut)
 
-            _ = FrameResult(frame_idx=frame_idx, detections=detections, scene_cut=cut)
             annotated = draw_detections(frame, detections)
             writer.write(annotated)
 
