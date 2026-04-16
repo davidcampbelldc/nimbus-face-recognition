@@ -155,35 +155,108 @@ NOTES.md           # design rationale, decisions, trade-offs
 
 ---
 
-## Architecture
+## How it works
 
-```
-Reader → Detector → Embedder → Recogniser → Render → h264 writer
-          (RetinaFace) (Facenet512) (k-NN + threshold)    ↑
-                                          ↓               │
-                                        Tracker ──────────┘
-                                        (IoU + hysteresis,
-                                         flushed on scene cut)
+The pipeline runs in two phases. A one-time setup builds the reference
+library. A per-video runtime processes each frame.
+
+### Process flow
+
+```mermaid
+flowchart TD
+    subgraph setup["One-time setup (run when references change)"]
+        direction LR
+        R1["26 reference stills<br/>5 characters"] --> R2["Embed with Facenet512"]
+        R2 --> R3["Leave-one-out calibration<br/>per-character thresholds"]
+        R3 --> R4[("refs/embeddings.npz<br/>refs/calibration.json")]
+    end
+
+    subgraph runtime["Per-video runtime (for each frame)"]
+        direction TB
+        V1["1. Read frame"] --> V2{"2. Scene cut?"}
+        V2 -->|yes| V2a["flush tracker"]
+        V2 -->|no| V3
+        V2a --> V3["3. Detect faces<br/>RetinaFace"]
+        V3 --> V4["4. Extract embeddings<br/>Facenet512"]
+        V4 --> V5["5. Match against references<br/>k-NN + threshold + margin"]
+        V5 --> V6["6. Update tracker<br/>IoU + label smoothing"]
+        V6 --> V7["7. Draw boxes + labels"]
+        V7 --> V8["8. Write frame"]
+    end
+
+    R4 -.reference<br/>library.-> V5
+    V8 --> post["9. ffmpeg re-encode to h264"]
+    post --> out[("data/output/nimbus_final.mp4")]
+
+    style R4 fill:#e1f5ff,stroke:#0088cc
+    style out fill:#e1f5ff,stroke:#0088cc
 ```
 
-- **Detector.** DeepFace's RetinaFace. Returns bounding box plus aligned
-  crop per face.
+### Stages explained
+
+**One-time setup** (run once, or again when references change):
+
+1. **Curate references.** 26 film stills hand-picked from roughly the
+   right era, 4 to 8 per character. Each image must contain one
+   detectable face. Mixed-era shots are rejected.
+2. **Embed references.** Each reference runs through Facenet512 to
+   produce a 512-number fingerprint. Stored in `refs/embeddings.npz`.
+3. **Calibrate thresholds.** Leave-one-out: for each reference, measure
+   how far it lands from the rest of its character cluster. The
+   tightest threshold that still accepts every legitimate reference
+   becomes that character's threshold. Stored in
+   `refs/calibration.json`.
+
+**Per-video runtime** (for each frame of the input clip):
+
+1. **Read frame.** OpenCV decodes one frame from the input video.
+2. **Scene-cut check.** MABS (mean absolute pixel difference) compares
+   the current frame to the previous one. A large change means a new
+   shot, so tracker state is flushed to stop labels bleeding across
+   cuts.
+3. **Detect faces.** RetinaFace finds every face and returns bounding
+   boxes plus aligned crops.
+4. **Extract embeddings.** Facenet512 turns each aligned crop into a
+   512-d fingerprint.
+5. **Match against references.** k-NN(k=3) cosine distance against
+   every character's reference embeddings. The closest character wins
+   only if (a) its mean distance is below that character's calibrated
+   threshold, and (b) the gap to the runner-up exceeds the margin.
+   Otherwise `Unknown`.
+6. **Update tracker.** IoU-matches the detection against active tracks.
+   The displayed label is the mode of the recent 7-frame history, so
+   single-frame errors don't cause flicker.
+7. **Draw boxes and labels.** Colour-coded bounding box plus character
+   name and confidence.
+8. **Write frame** to an mp4v intermediate file.
+
+**Post-render:**
+
+9. **ffmpeg re-encode** converts the mp4v intermediate to h264 with
+   `yuv420p` and `+faststart`, so the output plays in QuickTime, VLC,
+   Chrome, and browser embeds.
+
+### Component detail
+
+- **Detector.** DeepFace's RetinaFace. Returns bounding box plus
+  aligned crop per face.
 - **Embedder.** DeepFace's Facenet512. 512-d L2-normalised vector per
   aligned face.
-- **Recogniser.** k-NN(k=3) cosine distance against curated references,
-  per-class thresholds calibrated leave-one-out, plus a top-1 vs top-2
-  margin gate that falls back to `Unknown` when uncertain.
+- **Recogniser.** k-NN(k=3) cosine distance against curated
+  references, per-class thresholds calibrated leave-one-out, plus a
+  top-1 vs top-2 margin gate that falls back to `Unknown` when
+  uncertain.
 - **Tracker.** IoU-matched across frames, label smoothed by history
   mode. Flushed on scene cuts so labels don't bleed across shots.
-- **Renderer.** Coloured bounding boxes plus confidence-suffixed label.
-  h264 mp4 output via ffmpeg re-encode.
+- **Renderer.** Coloured bounding boxes plus confidence-suffixed
+  label. h264 mp4 output via ffmpeg re-encode.
 
-> **In plain English.** Frame by frame: find the faces (detector), turn
-> each one into a fingerprint of numbers (embedder), compare each
+> **In plain English.** Frame by frame: find the faces (detector),
+> turn each one into a fingerprint of numbers (embedder), compare each
 > fingerprint against our reference photos to pick the closest match,
 > and decide whether to commit to a name (recogniser). A tracker
-> watches the same face across several frames and only changes its mind
-> when the evidence shifts. That is what stops the output video
+> watches the same face across several frames and only changes its
+> mind when the evidence shifts. That is what stops the output video
 > flickering between "Harry" and "Unknown" on the same face. A
 > scene-change detector resets the tracker when the shot cuts, so
 > labels don't bleed across unrelated shots.
