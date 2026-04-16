@@ -10,7 +10,7 @@
         396
       ],
       "det_conf": 1.0,
-      "label": "Unknown",
+      "label": "Harry",
       "labeller_conf": "low"
     }
   ],
@@ -871,7 +871,7 @@
         120
       ],
       "det_conf": 0.99,
-      "label": "Unknown",
+      "label": "Harry",
       "labeller_conf": "medium"
     }
   ],
