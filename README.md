@@ -303,6 +303,24 @@ no-tuning-on-test discipline):
 
 ---
 
+## Development approach
+
+Built in pair-programming mode with
+[Claude Code](https://claude.com/claude-code) (Anthropic's CLI agent
+for software engineering). Claude drafted and refactored much of the
+code. I directed the work, reviewed every commit, and own the
+architecture, evaluation design, the no-tuning-on-test discipline, the
+reference-curation judgement calls, and the interpretation of the
+McGonagall near-miss.
+
+One AI use is worth flagging separately because it affects the
+evaluation itself: the ground-truth labels for the 76-face evaluation
+sample were proposed by Claude Vision via an anchoring-free workflow
+(the model saw box IDs only, no character names), then verified
+frame by frame against the film. Net result: 2 labels out of 76 were
+flipped after verification. Full methodology:
+[NOTES.md §6.2](NOTES.md#62-anchoring-free-vlm-pre-labelling).
+
 ## Development
 
 Tests:

@@ -386,20 +386,26 @@ clustering.
 
 ### 6.2 Anchoring-free VLM pre-labelling
 
-Hand-labelling 76 faces would take ~2 hours and risk anchoring bias
-(the labeller sees the character names first). Instead:
+Hand-labelling 76 faces would take ~2 hours and risks anchoring bias
+(the labeller sees the target character names first). Instead we used
+a VLM (Claude Vision) under a discipline designed to remove that bias:
 
 1. Each sampled frame was annotated with box IDs only (`B0`, `B1`,
-   ...). No character hints shown to the labelling model.
-2. A VLM (Claude vision) proposed a label plus confidence (`high` /
-   `medium` / `low`) for every box from the image alone.
-3. The ~10% flagged low/medium were reviewed by the author against
-   the film itself and either confirmed or corrected.
+   ...). The VLM was not shown the list of target character names.
+2. The VLM proposed a label plus confidence (`high` / `medium` /
+   `low`) for every box from the image alone.
+3. The ~10% of labels flagged low or medium were reviewed by the
+   author against the film itself and either confirmed or corrected.
 
 Net edits post-review: **2 flips out of 76 labels**, both back-of-head
 shots where the VLM was appropriately conservative and film context
 resolved the ambiguity. This workflow is now a One Ring convention
 (`vlm-pre-labelling-human-verified`) for this kind of ML eval work.
+
+This use of a VLM is a substantive methodological choice and is
+therefore disclosed in the [README Development approach](README.md#development-approach)
+section as well, so that a reviewer evaluating the labelling quality
+knows exactly how the ground truth was produced.
 
 ### 6.3 Bootstrap confidence intervals
 
@@ -609,3 +615,10 @@ Ordered by expected value per hour:
 - **OpenCV** for everything video I/O.
 - **ffmpeg** for the h264 re-encode that works around the pip-wheel
   codec gap.
+- **Claude Code** (Anthropic) as a pair-programming collaborator for
+  much of the implementation. Architecture, evaluation design, and
+  judgement calls stayed with me, but the agent drafted and refactored
+  a lot of the code under direction. See the
+  [README Development approach](README.md#development-approach)
+  section for scope and the specific Claude Vision use in eval
+  pre-labelling.
