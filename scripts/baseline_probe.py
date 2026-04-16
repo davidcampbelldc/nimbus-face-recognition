@@ -29,6 +29,11 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from nimbus.embedder import cosine_distance, l2_normalise  # noqa: E402
 
+# Plan §7 thresholds for the probe report.
+INTRA_CLASS_MAX_TARGET = 0.30  # tight clustering target for same-character references
+HARDEST_PAIR_WARN = 0.40  # below this, global threshold alone won't work
+HARDEST_PAIR_CLEAR = 0.60  # above this, thresholding is comfortable
+
 REFERENCES_DIR = REPO_ROOT / "references"
 OUT_PATH = REPO_ROOT / "refs" / "baseline_probe.json"
 
@@ -84,7 +89,7 @@ def measure_character(character: str) -> CharacterStats:
 
 def main() -> None:
     print("=== Baseline probe — feature-space geometry ===\n")
-    print(f"Model: Facenet512 (via DeepFace), detector: retinaface\n")
+    print("Model: Facenet512 (via DeepFace), detector: retinaface\n")
 
     stats: list[CharacterStats] = []
     for character in CHARACTERS:
@@ -93,10 +98,14 @@ def main() -> None:
         stats.append(s)
         print(f"{s.n_refs} refs, intra mean={s.intra_mean:.3f}, max={s.intra_max:.3f}")
 
-    print("\n=== Intra-class spread (lower = tighter; plan target < 0.30) ===")
+    print(
+        f"\n=== Intra-class spread (lower = tighter; plan target < "
+        f"{INTRA_CLASS_MAX_TARGET:.2f}) ==="
+    )
     for s in stats:
-        marker = "✓" if s.intra_max < 0.30 else "⚠ LOOSE"
-        print(f"  {s.name:12s} n={s.n_refs}  mean={s.intra_mean:.3f}  max={s.intra_max:.3f}  {marker}")
+        marker = "✓" if s.intra_max < INTRA_CLASS_MAX_TARGET else "⚠ LOOSE"
+        summary = f"n={s.n_refs}  mean={s.intra_mean:.3f}  max={s.intra_max:.3f}"
+        print(f"  {s.name:12s} {summary}  {marker}")
 
     print("\n=== Pairwise centroid distances (higher = easier to distinguish) ===")
     names = [s.name for s in stats]
@@ -121,16 +130,22 @@ def main() -> None:
                 hardest_dist = matrix[i, j]
                 hardest_pair = (names[i], names[j])
 
-    print(f"\n=== Hardest pair ===")
+    print("\n=== Hardest pair ===")
     print(f"  {hardest_pair[0]} vs {hardest_pair[1]}: centroid distance = {hardest_dist:.3f}")
 
-    if hardest_dist < 0.40:
-        print(f"\n  ⚠ Hardest pair below 0.40 — recogniser should lean on margin + per-class")
-        print(f"    thresholds, not a single global threshold. Confirms plan §5 design.")
-    elif hardest_dist < 0.60:
-        print(f"\n  ✓ Hardest pair ≥ 0.40. Margin test remains valuable but is not load-bearing.")
+    if hardest_dist < HARDEST_PAIR_WARN:
+        print(
+            f"\n  ⚠ Hardest pair below {HARDEST_PAIR_WARN:.2f} — "
+            "recogniser should lean on margin + per-class"
+        )
+        print("    thresholds, not a single global threshold. Confirms plan §5 design.")
+    elif hardest_dist < HARDEST_PAIR_CLEAR:
+        print(
+            f"\n  ✓ Hardest pair ≥ {HARDEST_PAIR_WARN:.2f}. "
+            "Margin test remains valuable but is not load-bearing."
+        )
     else:
-        print(f"\n  ✓ Wide separation. Any reasonable threshold will work.")
+        print("\n  ✓ Wide separation. Any reasonable threshold will work.")
 
     # Persist
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)

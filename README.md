@@ -93,14 +93,14 @@ Raw numbers: [`eval/metrics.json`](eval/metrics.json). Methodology:
 
 ## Output video
 
-*(Drive link to `nimbus_final.mp4` goes here before submission.)*
+[Watch on Google Drive](https://drive.google.com/file/d/13BGD98VuZavxEwaXtgo2AhCadiBt6onp/view?usp=sharing) — `nimbus_final.mp4` (~32 MB, H.264).
 
 ---
 
 ## Quickstart
 
 ```bash
-git clone <repo-url>
+git clone git@github.com:davidcampbelldc/whiteswan-deepface.git
 cd whiteswan-deepface
 pip install -e .
 

@@ -117,6 +117,7 @@ class VideoWriter:
                 str(self.path),
             ],
             capture_output=True,
+            check=False,
         )
         if result.returncode != 0:
             print(f"ffmpeg re-encode failed: {result.stderr.decode()}")
@@ -124,7 +125,7 @@ class VideoWriter:
             return
         self._tmp_path.unlink()
 
-    def __enter__(self) -> "VideoWriter":
+    def __enter__(self) -> VideoWriter:
         return self
 
     def __exit__(self, *exc: object) -> None:

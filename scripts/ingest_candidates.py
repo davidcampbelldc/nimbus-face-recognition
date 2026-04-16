@@ -21,11 +21,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import cv2
-import numpy as np
 from PIL import Image
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 REFERENCES_DIR = REPO_ROOT / "references"
+
+# Plan §6: below this, the character is under-represented and recognition will suffer.
+MIN_REFS_PER_CHARACTER = 3
 
 # Mapping: character → list of candidate filenames (relative to source dir).
 # harry3.webp (PoA-era, older) and ron1.webp (Chamber-era?) dropped per review.
@@ -91,6 +93,52 @@ def detect_faces(jpg_path: Path) -> int:
         return -1
 
 
+def format_result_line(fname: str, result: IngestResult) -> str:
+    """Human-readable per-candidate line for the ingest log."""
+    if result.status == "accepted":
+        return f"✓ {fname} → {result.dest}"
+    if result.status == "decode_fail" and "source not found" in result.detail:
+        return f"✗ {fname} — source missing"
+    if result.status == "decode_fail":
+        return f"✗ {fname} — decode failed (PIL + ffmpeg both)"
+    if result.status == "no_face":
+        return f"✗ {fname} — RetinaFace detected 0 faces"
+    if result.status == "multi_face":
+        return f"✗ {fname} — multi-face ({result.detail}); reject"
+    return f"? {fname} — {result.status} {result.detail}"
+
+
+def process_candidate(
+    fname: str, character: str, source_dir: Path, char_dir: Path, accepted_so_far: int
+) -> IngestResult:
+    """Decode + detect one candidate. Returns result; caller tracks accepted count."""
+    src = source_dir / fname
+    if not src.exists():
+        return IngestResult(fname, character, "decode_fail", f"source not found: {src}")
+
+    with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
+        tmp_path = Path(tmp.name)
+
+    try:
+        if not decode_to_jpg(src, tmp_path):
+            return IngestResult(fname, character, "decode_fail")
+
+        n_faces = detect_faces(tmp_path)
+        if n_faces == 0:
+            return IngestResult(fname, character, "no_face")
+        if n_faces > 1:
+            return IngestResult(fname, character, "multi_face", f"{n_faces} faces")
+
+        dest = char_dir / f"{accepted_so_far + 1:02d}.jpg"
+        shutil.move(str(tmp_path), dest)
+        return IngestResult(
+            fname, character, "accepted", dest=str(dest.relative_to(REPO_ROOT))
+        )
+    finally:
+        if tmp_path.exists():
+            tmp_path.unlink()
+
+
 def main(source_dir: Path) -> None:
     print(f"Ingesting candidates from: {source_dir}")
     print(f"Destination root:          {REFERENCES_DIR}\n")
@@ -107,43 +155,11 @@ def main(source_dir: Path) -> None:
         print(f"=== {character} ===")
         accepted = 0
         for fname in filenames:
-            src = source_dir / fname
-            if not src.exists():
-                results.append(IngestResult(fname, character, "decode_fail",
-                                            f"source not found: {src}"))
-                print(f"  ✗ {fname} — source missing")
-                continue
-
-            with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
-                tmp_path = Path(tmp.name)
-
-            try:
-                if not decode_to_jpg(src, tmp_path):
-                    results.append(IngestResult(fname, character, "decode_fail"))
-                    print(f"  ✗ {fname} — decode failed (PIL + ffmpeg both)")
-                    continue
-
-                n_faces = detect_faces(tmp_path)
-                if n_faces == 0:
-                    results.append(IngestResult(fname, character, "no_face"))
-                    print(f"  ✗ {fname} — RetinaFace detected 0 faces")
-                    continue
-                if n_faces > 1:
-                    results.append(IngestResult(fname, character, "multi_face",
-                                                f"{n_faces} faces"))
-                    print(f"  ✗ {fname} — multi-face ({n_faces}); reject")
-                    continue
-
-                # Accepted — move into references/<char>/NN.jpg
+            result = process_candidate(fname, character, source_dir, char_dir, accepted)
+            results.append(result)
+            if result.status == "accepted":
                 accepted += 1
-                dest = char_dir / f"{accepted:02d}.jpg"
-                shutil.move(str(tmp_path), dest)
-                results.append(IngestResult(fname, character, "accepted",
-                                            dest=str(dest.relative_to(REPO_ROOT))))
-                print(f"  ✓ {fname} → {dest.relative_to(REPO_ROOT)}")
-            finally:
-                if tmp_path.exists():
-                    tmp_path.unlink()
+            print(f"  {format_result_line(fname, result)}")
 
     # Summary
     print("\n=== Summary ===")
@@ -153,7 +169,7 @@ def main(source_dir: Path) -> None:
             by_char[r.character] = by_char.get(r.character, 0) + 1
     for character in CANDIDATES:
         n = by_char.get(character, 0)
-        marker = "✓" if n >= 3 else "⚠ LOW"
+        marker = "✓" if n >= MIN_REFS_PER_CHARACTER else "⚠ LOW"
         print(f"  {character:12s} {n} accepted   {marker}")
 
     rejects = [r for r in results if r.status != "accepted"]
@@ -163,8 +179,13 @@ def main(source_dir: Path) -> None:
             print(f"    - {r.character}/{r.source}: {r.status} {r.detail}")
 
 
+DEFAULT_SOURCE = (
+    Path.home() / "Documents" / "loadmagic" / "magic-mandy"
+    / "docs" / "myCV" / "recruitment-assessments" / "images"
+)
+
 if __name__ == "__main__":
-    src = Path(sys.argv[1]) if len(sys.argv) > 1 else Path.home() / "Documents" / "loadmagic" / "magic-mandy" / "docs" / "myCV" / "recruitment-assessments" / "images"
+    src = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_SOURCE
     if not src.is_dir():
         print(f"Source not found: {src}", file=sys.stderr)
         sys.exit(1)

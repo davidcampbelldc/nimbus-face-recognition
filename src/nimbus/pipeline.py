@@ -178,7 +178,7 @@ def run(
         scale = downsample / min(width, height)
 
     with VideoWriter(video_out, fps, width, height) as writer:
-        for frame_idx in iterator:
+        for _ in iterator:
             ok, frame = cap.read()
             if not ok:
                 break
