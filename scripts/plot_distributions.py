@@ -25,10 +25,11 @@ import json
 import sys
 from pathlib import Path
 
-import matplotlib
-matplotlib.use("Agg")  # no DISPLAY needed
-import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib  # noqa: I001
+
+matplotlib.use("Agg")  # no DISPLAY needed — must be set before pyplot import
+import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "src"))
@@ -94,55 +95,105 @@ def plot_per_character_distances(
         print(f"  wrote {out}")
 
 
+def _iou(a: list[int], b: list[int]) -> float:
+    ax, ay, aw, ah = a
+    bx, by, bw, bh = b
+    ix1 = max(ax, bx)
+    iy1 = max(ay, by)
+    ix2 = min(ax + aw, bx + bw)
+    iy2 = min(ay + ah, by + bh)
+    iw = max(0, ix2 - ix1)
+    ih = max(0, iy2 - iy1)
+    inter = iw * ih
+    if inter == 0:
+        return 0.0
+    union = aw * ah + bw * bh - inter
+    return inter / union if union > 0 else 0.0
+
+
+def _match_predictions(
+    gt: list[dict],
+    preds: list[dict],
+    iou_match: float = 0.5,
+) -> tuple[list[tuple[dict, dict]], list[dict], list[dict]]:
+    candidates: list[tuple[float, int, int]] = []
+    for gi, g in enumerate(gt):
+        for pi, p in enumerate(preds):
+            score = _iou(g["bbox"], p["bbox"])
+            if score >= iou_match:
+                candidates.append((score, gi, pi))
+    candidates.sort(reverse=True)
+    claimed_g, claimed_p = set(), set()
+    matched: list[tuple[dict, dict]] = []
+    for _score, gi, pi in candidates:
+        if gi in claimed_g or pi in claimed_p:
+            continue
+        claimed_g.add(gi)
+        claimed_p.add(pi)
+        matched.append((gt[gi], preds[pi]))
+    unmatched_g = [g for i, g in enumerate(gt) if i not in claimed_g]
+    unmatched_p = [p for i, p in enumerate(preds) if i not in claimed_p]
+    return matched, unmatched_g, unmatched_p
+
+
 def _eval_threshold(
     ground_truth: dict[str, list[dict]],
     predictions: dict[str, list[dict]],
     cls: str,
     threshold: float,
 ) -> float:
-    """Compute F1 for class `cls` on the eval set, using `threshold` in place
-    of the calibrated one. Predictions were recorded BEFORE thresholding, so
-    we re-threshold using `top1_distance` embedded in predictions if present.
+    """F1 for `cls` on eval set, simulated at a different threshold.
 
-    Simplification: predictions.json only has the final labels + rec_conf,
-    not top1_distance. So for the sweep we instead reinterpret rec_conf:
-    a prediction with rec_conf >= (1 - threshold) passes the threshold test
-    (since rec_conf = 1 - top1_distance per the recogniser). Labels flip to
-    Unknown when rec_conf < (1 - threshold).
+    Predictions were recorded under the calibrated threshold, so rec_conf =
+    1 - top1_distance only for predictions whose label is named (not
+    Unknown). We use this to approximate a tightening sweep: raise the
+    threshold and prior named-class predictions with rec_conf < (1 -
+    threshold) flip to Unknown.
+
+    Limitation: we cannot lower the effective threshold below what was used
+    originally — a prediction that was Unknown due to the margin test
+    stays Unknown under any threshold change in this approximation. So the
+    sweep is honest about "what if we were stricter" but silent about
+    "what if we were laxer". The calibration doc notes this.
     """
     tp = fp = fn = 0
-    from scripts.evaluate import _match_predictions  # noqa: PLC0415
-
     for frame_idx, gt_list in ground_truth.items():
         preds = predictions.get(frame_idx, [])
-        # Build thresholded predictions: label -> Unknown if confidence too low.
-        thresholded = []
-        for p in preds:
-            if p.get("rec_conf") is not None and p["label"] != "Unknown":
-                if p["rec_conf"] < (1.0 - threshold):
-                    thresholded.append({**p, "label": "Unknown"})
-                else:
-                    thresholded.append(p)
-            else:
-                thresholded.append(p)
-        matched, unmatched_gt, unmatched_pred = _match_predictions(gt_list, thresholded)
-        for g, pred in matched:
-            if g["label"] == cls and pred["label"] == cls:
-                tp += 1
-            elif pred["label"] == cls:
-                fp += 1
-            elif g["label"] == cls:
-                fn += 1
-        for g in unmatched_gt:
-            if g["label"] == cls:
-                fn += 1
-        for p in unmatched_pred:
-            if p["label"] == cls:
-                fp += 1
+        thresholded = [_apply_threshold(p, threshold) for p in preds]
+        ftp, ffp, ffn = _count_one_class(gt_list, thresholded, cls)
+        tp += ftp
+        fp += ffp
+        fn += ffn
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
     return (2 * precision * recall / (precision + recall)
             if (precision + recall) > 0 else 0.0)
+
+
+def _apply_threshold(p: dict, threshold: float) -> dict:
+    rc = p.get("rec_conf")
+    if rc is not None and p["label"] != "Unknown" and rc < (1.0 - threshold):
+        return {**p, "label": "Unknown"}
+    return p
+
+
+def _count_one_class(
+    gt_list: list[dict],
+    thresholded: list[dict],
+    cls: str,
+) -> tuple[int, int, int]:
+    matched, unmatched_gt, unmatched_pred = _match_predictions(gt_list, thresholded)
+    tp = fp = fn = 0
+    for g, pred in matched:
+        if g["label"] == cls and pred["label"] == cls:
+            tp += 1
+        elif pred["label"] == cls:
+            fp += 1
+        elif g["label"] == cls:
+            fn += 1
+    fn += sum(1 for g in unmatched_gt if g["label"] == cls)
+    fp += sum(1 for p in unmatched_pred if p["label"] == cls)
+    return tp, fp, fn
 
 
 def plot_threshold_sweep(
