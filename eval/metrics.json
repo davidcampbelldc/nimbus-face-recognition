@@ -1,0 +1,146 @@
+{
+  "n_frames": 40,
+  "n_gt_faces": 76,
+  "detection_recall": 1.0,
+  "detection_matched": 76,
+  "detection_total": 76,
+  "iou_threshold": 0.5,
+  "classes": [
+    "Harry",
+    "Ron",
+    "Hermione",
+    "McGonagall",
+    "Snape",
+    "Unknown"
+  ],
+  "per_class": {
+    "Harry": {
+      "precision": 1.0,
+      "recall": 0.8571,
+      "f1": 0.9231,
+      "precision_ci95": [
+        1.0,
+        1.0
+      ],
+      "recall_ci95": [
+        0.6842,
+        1.0
+      ],
+      "f1_ci95": [
+        0.8,
+        1.0
+      ]
+    },
+    "Ron": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "precision_ci95": [
+        0.0,
+        1.0
+      ],
+      "recall_ci95": [
+        0.0,
+        1.0
+      ],
+      "f1_ci95": [
+        0.0,
+        1.0
+      ]
+    },
+    "Hermione": {
+      "precision": 1.0,
+      "recall": 0.3636,
+      "f1": 0.5333,
+      "precision_ci95": [
+        1.0,
+        1.0
+      ],
+      "recall_ci95": [
+        0.0833,
+        0.6667
+      ],
+      "f1_ci95": [
+        0.1667,
+        0.8
+      ]
+    },
+    "McGonagall": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "precision_ci95": [
+        0.0,
+        0.0
+      ],
+      "recall_ci95": [
+        0.0,
+        0.0
+      ],
+      "f1_ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "Snape": {
+      "precision": 1.0,
+      "recall": 0.6667,
+      "f1": 0.8,
+      "precision_ci95": [
+        1.0,
+        1.0
+      ],
+      "recall_ci95": [
+        0.2,
+        1.0
+      ],
+      "f1_ci95": [
+        0.3333,
+        1.0
+      ]
+    },
+    "Unknown": {
+      "precision": 0.6596,
+      "recall": 1.0,
+      "f1": 0.7949,
+      "precision_ci95": [
+        0.375,
+        0.8551
+      ],
+      "recall_ci95": [
+        1.0,
+        1.0
+      ],
+      "f1_ci95": [
+        0.5581,
+        0.9244
+      ]
+    }
+  },
+  "macro_f1": 0.6197,
+  "confusion_matrix": {
+    "Unknown": {
+      "Unknown": 31
+    },
+    "Snape": {
+      "Unknown": 2,
+      "Snape": 4
+    },
+    "Hermione": {
+      "Unknown": 7,
+      "Hermione": 4
+    },
+    "Ron": {
+      "Unknown": 3,
+      "Ron": 3
+    },
+    "Harry": {
+      "Unknown": 3,
+      "Harry": 18
+    },
+    "McGonagall": {
+      "Unknown": 1
+    }
+  },
+  "bootstrap_resamples": 1000
+}
