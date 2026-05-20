@@ -5,7 +5,7 @@ Snape) in a 101-second clip from *Philosopher's Stone*, using
 [DeepFace](https://github.com/serengil/deepface) with RetinaFace detection
 and Facenet512 embeddings.
 
-Built as a take-home assessment for White Swan Data.
+A facial recognition pipeline built to demonstrate real-time video analysis capabilities.
 
 ---
 
@@ -100,11 +100,11 @@ Raw numbers: [`eval/metrics.json`](eval/metrics.json). Methodology:
 ## Quickstart
 
 ```bash
-git clone git@github.com:davidcampbelldc/whiteswan-deepface.git
-cd whiteswan-deepface
+git clone git@github.com:davidcampbelldc/nimbus-face-recognition.git
+cd nimbus-face-recognition
 pip install -e .
 
-# Download the input clip (provided in the assessment brief) into data/input/
+# Download the input clip into data/input/
 mkdir -p data/input
 # Google Drive source:
 #   https://drive.google.com/file/d/1CM1IWUN59ZWml9MwgrvSHXz_9AirIiuU/view
@@ -421,8 +421,8 @@ A short guide to the terminology used here. No prior ML background needed.
 - **DeepFace / RetinaFace / Facenet512.** The pre-built open-source AI
   models we use. **DeepFace** is the Python library. **RetinaFace** is
   the specific face-detection model. **Facenet512** is the specific
-  face-embedding model. All three are recommended in the assessment
-  brief.
+  face-embedding model. All three are well-established choices for
+  this kind of pipeline.
 
 ---
 

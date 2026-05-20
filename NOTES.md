@@ -17,14 +17,14 @@ faces it recognises as one of five *Harry Potter* characters: Harry,
 Ron, Hermione, McGonagall, Snape. When it isn't sure, it labels the
 face as `Unknown` rather than guessing.
 
-**How it works in one breath.** Two AI models, both recommended by the
-brief. One finds faces in each frame. The other turns each face into a
+**How it works in one breath.** Two established open-source AI models.
+One finds faces in each frame. The other turns each face into a
 512-number "fingerprint" we can compare against a small set of reference
 photos per character.
 
-**What we spent effort on.** The brief said *"reasonable performance
-given the model's capabilities is enough."* We read that as an
-invitation to prioritise engineering rigor over squeezing the last 5% of
+**What we spent effort on.** The goal was reasonable performance
+given the models' capabilities, which meant prioritising engineering
+rigor over squeezing the last 5% of
 recognition accuracy. The interesting work:
 
 1. **Reference curation and calibration.** A small, hand-picked set of
@@ -55,9 +55,9 @@ interesting findings, and next steps. Technical readers: read the lot.
 
 ---
 
-## 1. Brief → Delivery
+## 1. Design Goals
 
-| Requirement | Where |
+| Goal | Where |
 |---|---|
 | Use DeepFace | `src/nimbus/detector.py`, `src/nimbus/embedder.py` |
 | RetinaFace detector | `detector.py` wraps `DeepFace.extract_faces(detector_backend="retinaface")` |
@@ -69,9 +69,9 @@ interesting findings, and next steps. Technical readers: read the lot.
 | Instructions to run | `README.md`. 3-command quickstart. |
 | 5 target characters | Harry, Ron, Hermione, McGonagall, Snape |
 
-The brief said *"reasonable performance given the model's capabilities
-is enough."* We took that as an invitation to spend effort on
-engineering rigor. This document records what that looked like.
+The target was reasonable performance given the models' capabilities,
+so we spent effort on engineering rigor. This document records what
+that looked like.
 
 ---
 
@@ -305,8 +305,8 @@ is the canonical fix, vendored into the pipeline.
 ### 4.6 Label strings
 
 On-frame labels are short names (`Harry`, `Ron`, `Hermione`,
-`McGonagall`, `Snape`) plus confidence to 2 dp. The brief lists
-`Harry Potter`, `Prof. McGonagall`, etc.
+`McGonagall`, `Snape`) plus confidence to 2 dp. Full canonical names
+would be `Harry Potter`, `Prof. McGonagall`, etc.
 
 Short labels because:
 
@@ -318,17 +318,14 @@ Short labels because:
    playback speed. `Prof. Severus Snape` asks the reader to pause and
    read.
 
-If the reviewer prefers full names, the fix is one line in
+If full names are preferred, the fix is one line in
 `renderer.COLOUR_MAP` keys plus a tiny label-lookup indirection. Five
-minutes. Flagged here rather than silently done, because design choices
-that diverge from the spec should be visible.
+minutes.
 
 > **In plain English.** On-screen we say "Harry" not "Harry Potter",
 > because the wide-shot frames have nine faces at once and full names
 > would overlap into an unreadable soup. Colour coding carries the
-> identity visibly. A departure from the exact wording of the brief,
-> worth calling out so the reviewer can flag if they'd prefer the
-> literal strings. One-line fix.
+> identity visibly. One-line fix if full names are preferred.
 
 ---
 
